@@ -5,20 +5,48 @@ import (
 	"../datastructures"
 )
 
-
-func checkRecursive(root *bst.BstNode, n int) bool {
-	if root == nil {
+/** Solution 1 - Brute Force - O(N^2) */
+func checkRecursive(node *bst.BstNode, n int) bool {
+	
+	if node == nil {
 		return false
 	}
-	if bst.Size(root) == n-bst.Size(root) {
+	if bst.Size(node) == n-bst.Size(node) {
 		return true
 	}
-	return checkRecursive(root.Left, n) || checkRecursive(root.Right, n)
+	return checkRecursive(node.Left, n) || checkRecursive(node.Right, n)
 }
 
 func checkBinaryTreeEqualSizedDivision(root *bst.BstNode) bool {
 	size := bst.Size(root)
 	return checkRecursive(root, size)
+}
+
+/** Solution 2 - O(N) */
+
+func checkRecursiveEfficient(node *bst.BstNode, n int, result *bool) int {
+	
+	if node == nil {
+		return 0
+	}
+	
+	// Calculate the sizes of the left and right child
+	c := checkRecursiveEfficient(node.Left, n, result) + 1 + 
+			checkRecursiveEfficient(node.Right, n, result)
+	
+	// Check if tree can be divided or not
+	if c == n-c {
+		*result = true 
+	}
+	
+	return c
+}
+
+func checkBinaryTreeEqualSizedDivisionEfficient(root *bst.BstNode) bool {
+	size := bst.Size(root)
+	result := false
+	checkRecursiveEfficient(root, size, &result)
+	return result
 }
 
 func main() {
@@ -31,6 +59,8 @@ func main() {
   	root = bst.Insert(root, 23)
   	root = bst.Insert(root, 20)
   	root = bst.Insert(root, 30)
+  	
+  	fmt.Println("\n--------Using BruteForce Algorithm------------\n")
   	
   	result := checkBinaryTreeEqualSizedDivision(root)
   	
@@ -51,12 +81,28 @@ func main() {
   	root1 = bst.Insert(root1, 50)
   	
   	result = checkBinaryTreeEqualSizedDivision(root1)
-  	
   	if result == true {
   		fmt.Println("Binary Tree can be divided into 2 equal halves.")
   	} else {
   		fmt.Println("Binary Tree cannot be divided into 2 equal halves.")
   	}
-    
+  	
+  	fmt.Println("\n--------Using Efficient Algorithm------------\n")
+  	
+  	result = checkBinaryTreeEqualSizedDivisionEfficient(root)
+    if result == true {
+  		fmt.Println("Binary Tree can be divided into 2 equal halves.")
+  	} else {
+  		fmt.Println("Binary Tree cannot be divided into 2 equal halves.")
+  	}
+  	
+  	result = checkBinaryTreeEqualSizedDivisionEfficient(root1)
+    if result == true {
+  		fmt.Println("Binary Tree can be divided into 2 equal halves.")
+  	} else {
+  		fmt.Println("Binary Tree cannot be divided into 2 equal halves.\n")
+  	}
+  	
+  	
 }
 
