@@ -4,7 +4,7 @@ package main
 
 import (
 	"fmt"
-	"datastructures"
+	"competitive-programming-go/datastructures/bst"
 )
 
 /** Solution 1 - Brute Force - O(N^2) */

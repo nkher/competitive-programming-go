@@ -1,10 +1,8 @@
-// +build XXX
-
 package main 
 
 import (
 	"fmt"
-	"datastructures"
+	"competitive-programming-go/datastructures/bst"
 )
 
 func getSumOfUncoveredNodesLeft(node *bst.BstNode) int {
