@@ -5,13 +5,13 @@ import (
 )
 
 type SinglyLinkedList struct {
-	head *SinglyNode
+	Head *SinglyNode
 	size int
 }
 
 type SinglyNode struct {
-	data interface{}
-	next *SinglyNode
+	Data interface{}
+	Next *SinglyNode
 }
 
 func (sll *SinglyLinkedList) Length() int {
@@ -20,39 +20,39 @@ func (sll *SinglyLinkedList) Length() int {
 
 func (sll *SinglyLinkedList) Add(val interface{}) {
 	newNode := &SinglyNode{val, nil}
-	if sll.head == nil {
-		sll.head = newNode	
+	if sll.Head == nil {
+		sll.Head = newNode	
 	} else {
-		temp := sll.head
-		for temp.next != nil {
-			temp = temp.next
+		temp := sll.Head
+		for temp.Next != nil {
+			temp = temp.Next
 		}
-		temp.next = newNode
+		temp.Next = newNode
 	}
 	sll.size++
 }
 
 func (sll * SinglyLinkedList) Empty() bool {
-	return (sll.head == nil && sll.size == 0)
+	return (sll.Head == nil && sll.size == 0)
 }
 
 func (sll *SinglyLinkedList) Remove(val interface{}) bool {
 
-	curr, prev := sll.head, sll.head
+	curr, prev := sll.Head, sll.Head
 	if sll.Empty() {
 		fmt.Printf("Cannot remove from an empty list")
 	} else {
 		for (curr != nil) {
-			if curr.data == val {
-				if curr == sll.head { // this is the first element
-					sll.head = curr.next
+			if curr.Data == val {
+				if curr == sll.Head { // this is the first element
+					sll.Head = curr.Next
 				} else {
-					prev.next = curr.next
+					prev.Next = curr.Next
 					break
 				}
 			}
 			prev = curr
-			curr = curr.next
+			curr = curr.Next
 		}
 		return true
 	}
@@ -61,24 +61,26 @@ func (sll *SinglyLinkedList) Remove(val interface{}) bool {
 
 func (sll *SinglyLinkedList) Contains(val interface{}) bool {
 
-	curr := sll.head
+	curr := sll.Head
 	for curr != nil {
-		if curr.data == val {
+		if curr.Data == val {
 			return true
 		}
-		curr = curr.next
+		curr = curr.Next
 	}
 	return false
 }
 
 func (sll *SinglyLinkedList) String() string {
-	temp := sll.head
+	temp := sll.Head
 	str := "[ "
 	for temp != nil {
-		str += fmt.Sprintf("%v", temp.data) + " "
-		temp = temp.next
+		str += fmt.Sprintf("%v", temp.Data) + " "
+		temp = temp.Next
 	}
 	str += "]"
 	return str
 }
+
+
 
