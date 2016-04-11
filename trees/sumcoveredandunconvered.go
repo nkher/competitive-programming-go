@@ -5,56 +5,56 @@ import (
 	"competitive-programming-go/datastructures/bst"
 )
 
-func getSumOfUncoveredNodesLeft(node *bst.BstNode) int {
+func GetSumOfUncoveredNodesLeft(node *bst.BstNode) int {
 	
 	if node.Left == nil && node.Right == nil {
 		return node.Data
 	}
 	
 	if node.Left != nil {
-		return node.Data + getSumOfUncoveredNodesLeft(node.Left)
+		return node.Data + GetSumOfUncoveredNodesLeft(node.Left)
 	}
-	return node.Data + getSumOfUncoveredNodesLeft(node.Right)
+	return node.Data + GetSumOfUncoveredNodesLeft(node.Right)
 }
 
-func getSumOfUncoveredNodesRight(node *bst.BstNode) int {
+func GetSumOfUncoveredNodesRight(node *bst.BstNode) int {
 	
 	if node.Right == nil && node.Left == nil {
 		return node.Data
 	}
 	
 	if node.Right != nil {
-		return node.Data + getSumOfUncoveredNodesRight(node.Right)
+		return node.Data + GetSumOfUncoveredNodesRight(node.Right)
 	}
-	return node.Data + getSumOfUncoveredNodesRight(node.Left)
+	return node.Data + GetSumOfUncoveredNodesRight(node.Left)
 }
 
-func getSumOfUncoveredElements(root *bst.BstNode) int {
+func GetSumOfUncoveredElements(root *bst.BstNode) int {
 	
 	leftBoundary, rightBoundary := 0, 0
 	
 	if root.Left != nil {
-		leftBoundary = getSumOfUncoveredNodesLeft(root.Left)
+		leftBoundary = GetSumOfUncoveredNodesLeft(root.Left)
 	}
 	
 	if  root.Right != nil {
-		rightBoundary = getSumOfUncoveredNodesRight(root.Right)
+		rightBoundary = GetSumOfUncoveredNodesRight(root.Right)
 	}
 	
 	return (root.Data + leftBoundary + rightBoundary)
 }
 
-func getSumOfTree(root *bst.BstNode) int {
+func GetSumOfTree(root *bst.BstNode) int {
 	if root == nil {
 		return 0
 	}
-	return root.Data + getSumOfTree(root.Left) + getSumOfTree(root.Right)
+	return root.Data + GetSumOfTree(root.Left) + GetSumOfTree(root.Right)
 }
 
-func checkIfSameSum(root *bst.BstNode) bool {
+func CheckIfSameSum(root *bst.BstNode) bool {
 	
-	uncoveredSum := getSumOfUncoveredElements(root)
-	sumOfTree := getSumOfTree(root)
+	uncoveredSum := GetSumOfUncoveredElements(root)
+	sumOfTree := GetSumOfTree(root)
 	
 	return (sumOfTree == (sumOfTree - uncoveredSum))
 }
@@ -73,7 +73,7 @@ func main() {
   	root = bst.Insert(root, 4)
   	root = bst.Insert(root, 7)
   	
-  	result := checkIfSameSum(root)
+  	result := CheckIfSameSum(root)
   	
   	if result == true {
   		fmt.Println("Sum of covered and uncovered is same\n")

@@ -5,11 +5,12 @@ import (
 	"competitive-programming-go/Datastructures/list"
 )
 
-/* Write Strcmp function */
+// CompareStrings function compares 2 strings represented as linked lists. It is similar to the 
+// strcmp function in C. The function returns an integer as the return value. 0 signifies that both the
+// strings are equal, -1 means that the 1st string is larger and -1 means that the second string is larger
+func CompareStrings(sll1 *list.SinglyLinkedList, sll2 *list.SinglyLinkedList) int {
 
-func compare(sll1 *list.SinglyLinkedList, sll2 *list.SinglyLinkedList) int {
-
-	/** First traverse both the lists until the elements of both are equal */
+	// First traverse both the lists until the elements of both are equal 
 	h1, h2 := sll1.Head, sll2.Head
 
 	for (h1 != nil && h2 != nil && h1.Data == h2.Data) {
@@ -17,7 +18,7 @@ func compare(sll1 *list.SinglyLinkedList, sll2 *list.SinglyLinkedList) int {
 		h2 = h2.Next
 	}
 
-	/* Comparethe subsequent characters */
+	// Comparethe subsequent characters
 	if h1 != nil && h2  != nil {
 		var ret int
 		if ret = -1; h1.Data.(int32) > h2.Data.(int32) {
@@ -55,5 +56,5 @@ func main() {
 	sll2.Add('a')
 	sll2.Add('b')
 
-	fmt.Println(compare(sll1, sll2))
+	fmt.Println(CompareStrings(sll1, sll2))
 }
