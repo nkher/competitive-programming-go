@@ -7,6 +7,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 	"competitive-programming-go/Datastructures/list"
 )
 
@@ -31,7 +32,7 @@ func GetRandomNode(ll *list.SinglyLinkedList) *list.SinglyNode {
 
 	for n=2; current != nil; n++ {
 		// change the result with probability of 1/n
-		if rand.Intn(n) == 0 {
+		if randInt(0, n-1) == 0 {
 			result = current
 		}
 		current = current.Next
@@ -57,6 +58,11 @@ The probability that the second last node is result
           = [1 / (N-1)] * [(N-1)/N]
           = 1/N
 */
+
+func randInt(min int, max int) int {
+	rand.Seed(time.Now().UTC().UnixNano())
+	return min + rand.Intn(max - min)
+}
 
 func main() {
 
