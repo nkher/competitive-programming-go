@@ -25,6 +25,7 @@ func GetSumBitDifferencesInAllPairs(arr []int) int {
 		}
 
 		// Add the count of differences at the ith bit to the sum
+		// factor of 2 is multiplied for every combination of pairs
 		sum += count * (n - count) * 2
 	}
 	return sum
